@@ -1,8 +1,19 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
+from app.core.config import settings
 
-SQLALCHEMY_DATABASE_URL = "postgresql://githelp_user:password@localhost:5432/githelp_db"
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
+engine = create_async_engine(settings.DATABASE_URL)
+
+
+AsyncSessionLocal = async_sessionmaker(
+    class_=AsyncSession,
+    expire_on_commit=False,
+    autocommit=False,
+    autoflush=False,
+    bind=engine
+)
+
+async def get_dp():
+    async with AsyncSessionLocal() as session:
+        yield session
+
