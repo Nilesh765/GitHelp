@@ -1,11 +1,16 @@
 from fastapi import FastAPI
 from app.core.config import settings
+from app.modules.auth.router import router as auth_router
+from app.modules.users.router import router as users_router
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
     description="GitHelp API"
 )
+
+app.include_router(users_router, prefix="/api/v1")
+app.include_router(auth_router, prefix="/api/v1")
 
 @app.get("/health/live", tags=["Health"])
 async def health_live():

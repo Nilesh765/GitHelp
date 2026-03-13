@@ -13,7 +13,7 @@ AsyncSessionLocal = async_sessionmaker(
     bind=engine
 )
 
-async def get_dp():
+async def get_db():
     async with AsyncSessionLocal() as session:
         yield session
 
