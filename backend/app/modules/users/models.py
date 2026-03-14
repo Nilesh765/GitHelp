@@ -31,5 +31,5 @@ class User(Base):
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
     last_login = Column(DateTime(timezone=True), nullable=True)
 
-    # repositories = relationship("Repository", back_populates="owner", cascade="all, delete-orphan")
+    repositories = relationship("Repository", back_populates="owner", cascade="all, delete-orphan")
     # api_keys = relationship("Apikey", back_populates="user", cascade="all, delete-orphan")

@@ -8,11 +8,12 @@ pydantic-settings==2.1.0
 sqlalchemy==2.0.25
 asyncpg==0.29.0
 pgvector==0.2.5
+alembic==1.18.4
 
 # We will need these later for Auth and Tasks, adding them now so the file is complete
 python-jose[cryptography]==3.3.0
-passlib[bcrypt]==1.7.4
-bcrypt==4.3.0
+argon2-cffi==25.1.0
 python-multipart==0.0.9
 celery==5.3.6
 redis==5.0.1
+flower==2.0.1

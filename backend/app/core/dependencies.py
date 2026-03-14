@@ -6,10 +6,10 @@ from sqlalchemy.future import select
 
 from app.core.config import settings
 from app.core.database import get_db
-from app.modules.users.model import User
+from app.modules.users.models import User
 
 # ─── 1. THE SWAGGER UI CONNECTOR ──────────────────────────────
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/users/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
 
 # ─── 2. DEPENDENCY ──────────────────────────────

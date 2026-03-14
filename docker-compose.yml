@@ -33,5 +33,33 @@ services:
     ports:
       - "6379:6379"
 
+  celery_worker:
+    build: ./backend
+    command: celery -A app.modules.tasks.celery_app worker --loglevel=info -Q analysis
+    env_file:
+      - ./backend/.env
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://githelp_user:githelp_pass_123@postgres:5432/githelp_db
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - postgres
+      - redis
+
+  flower:
+    build: ./backend
+    command: celery -A app.modules.tasks.celery_app flower --port=5555
+    env_file:
+      - ./backend/.env
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - redis
+    ports:
+      - "5555:5555"
+
 volumes:
   postgres_data:
