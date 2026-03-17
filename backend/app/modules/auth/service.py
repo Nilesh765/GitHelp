@@ -6,8 +6,8 @@ from jose import jwt, JWTError
 
 from app.core.config import settings
 from app.core.security import get_password_hash, verify_password, create_access_token, create_refresh_token
-from app.modules.users.models import User
-from app.modules.auth.schemas import UserRegisterRequest, RefreshTokenRequest, TokenResponse
+from app.modules.user.model import User
+from app.modules.auth.schema import UserRegisterRequest, RefreshTokenRequest, TokenResponse
 
 async def register_user(db: AsyncSession, user_in: UserRegisterRequest) -> User:
     query = select(User).where(User.email == user_in.email)

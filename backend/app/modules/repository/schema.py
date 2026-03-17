@@ -37,17 +37,18 @@ class RepoResponse(BaseModel):
     provider: RepoProvider
     is_private: bool
     default_branch: str
-    celery_task_id: str | None
-    error_message: str | None
+    celery_task_id: str | None = None
+    error_message: str | None = None
     created_at: datetime
     updated_at: datetime
+    status: RepoStatus
 
     model_config = ConfigDict(from_attributes=True)
 
 class RepoSummaryResponse(BaseModel):
     id: UUID
     url: str
-    name: str | None
+    name: str | None = None
     provider: RepoProvider
     status: RepoStatus
     created_at: datetime

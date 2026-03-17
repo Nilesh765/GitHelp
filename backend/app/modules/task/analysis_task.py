@@ -1,10 +1,10 @@
 import uuid
 import asyncio
-from app.modules.tasks.celery_app import celery_app
+from app.modules.task.celery_app import celery_app
 from app.core.database import AsyncSessionLocal
-from app.modules.users.models import User
-from app.modules.repositories.models import Repository
-from app.modules.reviews.models import Review
+from app.modules.user.model import User
+from app.modules.repository.model import Repository
+from app.modules.review.model import Review
 from app.common.enums import RepoStatus, ReviewStatus
 
 async def _run_analysis_async(repository_id: str, celery_task):

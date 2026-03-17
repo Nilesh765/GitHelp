@@ -18,9 +18,9 @@ from app.common.base import Base # Ensure this path matches where your Base is d
 
 # ─── 3. IMPORT EVERY DB MODEL HERE ─────────────────────────────
 # If you don't import a model here, Alembic won't track it!
-from app.modules.users.models import User
-from app.modules.repositories.models import Repository
-from app.modules.reviews.models import Review
+from app.modules.user.model import User
+from app.modules.repository.model import Repository
+from app.modules.review.model import Review
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

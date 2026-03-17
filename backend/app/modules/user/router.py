@@ -3,18 +3,18 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from datetime import datetime, timedelta, timezone
 from app.core.database import get_db
-from app.modules.users.models import User
+from app.modules.user.model import User
 from app.core.dependencies import get_current_user
 
-from app.modules.users.schemas import (
+from app.modules.user.schema import (
     UserUpdateRequest, UserRoleUpdateRequest,
     UserResponse
 )
 
 
-from app.modules.users import service as user_service
+from app.modules.user import service as user_service
 
-router = APIRouter(prefix="/users", tags=["Users"])
+router = APIRouter(tags=["Users"])
 
 #Get Current User Profile
 @router.get("/me", response_model=UserResponse)

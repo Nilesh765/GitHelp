@@ -6,7 +6,7 @@ celery_app = Celery(
     broker=settings.REDIS_URL,
     backend=settings.REDIS_URL,
     include=[
-        "app.modules.tasks.analysis_tasks"
+        "app.modules.task.analysis_task"
     ]
 )
 
@@ -14,5 +14,5 @@ celery_app.conf.task_acks_late = True
 celery_app.conf.task_reject_on_worker_lost = True
 
 celery_app.conf.task_routes = {
-    "app.modules.tasks.analysis_tasks.*": {"queue": "analysis"},
+    "app.modules.task.analysis_task.*": {"queue": "analysis"},
 }

@@ -4,20 +4,20 @@ from uuid import UUID
 
 from app.core.database import get_db
 from app.core.dependencies import get_current_user
-from app.modules.users.models import User
+from app.modules.user.model import User
 from app.common.enums import RepoProvider, RepoStatus
-from app.modules.repositories.models import Repository
-from app.modules.repositories import service as repo_service
-from app.modules.repositories.schemas import (
+from app.modules.repository.model import Repository
+from app.modules.repository import service as repo_service
+from app.modules.repository.schema import (
     RepoSubmitRequest,
     RepoResponse,
     RepoUpdateRequest,
     RepoSummaryResponse,
     TaskStatusResponse
 )
-from app.modules.tasks.analysis_tasks import analyze_repository
+from app.modules.task.analysis_task import analyze_repository
 
-router = APIRouter(prefix="/repo", tags=["Repositories"])
+router = APIRouter(tags=["Repositories"])
 
 @router.post("/", status_code=status.HTTP_202_ACCEPTED)
 async def submit_repository(
@@ -25,11 +25,14 @@ async def submit_repository(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    result = await repo_service.create_repository(current_user.id, request, db)
+    repo = await repo_service.create_repository(current_user.id, request, db)
+    task = analyze_repository.delay(str(repo.id))
+    await repo_service.update_repository_status(db, repo.id, current_user, task.id)
+
     return {
         "message": "Repository submitted for analysis",
-        "repository_id": str(result["repository_id"]),
-        "task_id": result["task_id"]
+        "repository_id": str(repo.id),
+        "task_id": task.id
     }
 
 @router.get("/", response_model=list[RepoSummaryResponse])
