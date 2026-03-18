@@ -1,14 +1,27 @@
-# Python
-__pycache__/
-*.pyc
+# General
+.DS_Store
 
-# Virtual environment
-venv/
-backend/venv/
-
-# Environment variables
-.env
-
-# IDE
+# IDEs
 .vscode/
 .idea/
+
+# Backend (Python / FastAPI)
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+pytest_*.txt
+
+# Frontend (Node / React)
+node_modules/
+.next/
+out/
+dist/
+build/
+
+# Secrets
+.env
+.env*
+!.env.example

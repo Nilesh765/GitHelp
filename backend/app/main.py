@@ -34,9 +34,9 @@ app = FastAPI(
 app.add_middleware(CorrelationIDMiddleware)
 
 
-app.include_router(user_router)
-app.include_router(auth_router)
-app.include_router(repository_router)
-app.include_router(task_router)
-app.include_router(review_router)
-app.include_router(health_router)
+app.include_router(user_router, prefix="/api/v1/users")
+app.include_router(auth_router, prefix="/api/v1")
+app.include_router(repository_router, prefix="/api/v1/repos")
+app.include_router(task_router, prefix="/api/v1/tasks")
+app.include_router(review_router, prefix="/api/v1/reviews")
+app.include_router(health_router, prefix="/api/v1")
